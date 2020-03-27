@@ -1,0 +1,18 @@
+# Shared config mode preset configuration
+
+config_version = 1
+
+# List mode presets and their respective settings here.
+# Here we define two presets, "test" and "realtime", which set different settings
+
+[realtime.main.general]
+output_path_client = "~/brokkr/realtime"
+
+[realtime.main.pipelines.monitor]
+monitor_interval_s = 1
+
+[test.main.general]
+output_path_client = "~/brokkr/test"
+
+[test.main.pipelines.monitor]
+monitor_interval_s = 5
