@@ -36,7 +36,7 @@ filename_kwargs = { output_type = "monitoring" }
 [pipelines.monitor]
 # Custom builder for this pipeline, e.g. a streamlined builder for monitoring pipelines
 _builder = "monitor"
-# Name of this pipeline for UI text nad log messages
+# Name of this pipeline for UI text and log messages
 name = "Monitoring"
 # Custom settings for this pipeline type: here, the interval in s to run monitoring
 monitor_interval_s = 10
@@ -45,5 +45,6 @@ monitor_interval_s = 10
 monitor_input_steps = [
     "builtins.inputs.current_time",
     "builtins.inputs.run_time",
+    "example.inputs.ping",
 ]
 monitor_output_steps = [ "monitor_csv_output" ]
