@@ -1,0 +1,49 @@
+config_version = 1
+# Name of this device preset, used for lookup
+name = "example"
+# Type of this preset; currently the only type is device
+type = "device"
+
+# Preset-level metadata; format follows that specified in the top-level
+[metadata]
+name_full = "Example Preset"
+author = "Your name here"
+description = "Long description here"
+homepage = "https://www.example.com"
+repo = "https://github.com"
+preset_version = "0.1.0"
+brokkr_version_min = "0.3.0"
+
+# Data type presets to use for the data types that follow
+[type_presets]
+timestamp = { binary_type = "q", conversion = "time_posix_ms", unit = "s", uncertainty = 0.001}
+
+# Data types references in individual presets
+[data_types]
+timestamp_main = { full_name = "Time Stamp", type_presets = "timestamp" }
+
+# Presets are categorized into "input", "output", "commands", etc. (not required but good practice)
+
+# A simple input preset that pings localhost
+[inputs.ping]
+# Module to load with the class to use
+_module_path = "brokkr.inputs.ping"
+# PipelineStep class to instantiate with the preset's data
+_class_name = "PingInput"
+# Name of the step, used for UI text and logging
+name = "Ping Localhost"
+# Step-specific parameters
+host = "127.0.0.1"
+timeout_s = 1
+
+# An example preset that parses a timestamp from a heatbeat UDP packet
+[inputs.timestamp]
+_module_path = "brokkr.inputs.udp"
+_class_name = "UDPInput"
+name = "Example UDP packet with timestamp"
+host = "127.0.0.1"
+port = 8080
+timeout_s = 2
+data_types = [
+    "timestamp_main",
+]
