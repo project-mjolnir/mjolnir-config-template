@@ -5,15 +5,16 @@ config_version = 1
 [general]
 # The default pipeline to use when running the brokkr status and brokkr monitor commands
 monitoring_pipeline_default = "monitor"
-# How to format the output filename on the client. Items in {} are replaced with their corresponding value
+# How to format the output filename on the client.
+# Items in {} are replaced with their corresponding value
 output_filename_client = "{output_type}_{system_prefix}_{unit_number:0>4}_{utc_date!s}.{extension}"
 # The path the client should use when storing output data files
 output_path_client = "~/brokkr/{system_name}"
 # How long to wait for the workers to shut down after sending the command
 worker_shutdown_wait_s = 10
 
-# Include this key if using the built-in AutoSSH functionality for remote access and data upload.
-# It can be ignored if you are using a different network uplink method not requiring SSH
+# Include this section if using the built-in AutoSSH functionality for remote access and data upload.
+# It can be ignored if you are using a different network uplink method not requiring SSH.
 #[autossh]
 # Hostname of the server to connect to
 #server_hostname = "example.com"

@@ -2,6 +2,7 @@
 
 config_version = 1
 
+# Name of the system; used internally to reference it and for paths, etc.
 name = "template"
 
 # Full "pretty" name of the system, e.g. for UI text
@@ -10,10 +11,12 @@ name_full = "Mjolnir Config Template System"
 author = "Your name here"
 # Freeform description of the system's intended function and purpose
 description = "System configuration for the template package"
-# Website where visitors can learn more about the system or view the data
+# Official website for this specific system
 homepage = "https://www.example.com"
 # Repository containing the system's source code
 repo = "https://github.com"
+# SPDX license identifier for the this configuration package (CC0/PD)
+license = "CC0-1.0"
 
 # Version of the config package; should follow SemVer and PEP 396
 version = "0.1.0"

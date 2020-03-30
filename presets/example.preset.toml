@@ -1,3 +1,5 @@
+# Example preset demonstrating a sample configuration setup
+
 config_version = 1
 # Name of this device preset, used for lookup
 name = "example"
@@ -18,11 +20,11 @@ brokkr_version_min = "0.3.0"
 [type_presets]
 timestamp = { binary_type = "q", conversion = "time_posix_ms", unit = "s", uncertainty = 0.001}
 
-# Data types references in individual presets
+# Data types referenced in individual presets
 [data_types]
 timestamp_main = { full_name = "Time Stamp", type_presets = "timestamp" }
 
-# Presets are categorized into "input", "output", "commands", etc. (not required but good practice)
+# By convention, presets are categorized into "input", "output", "commands", etc.
 
 # A simple input preset that pings localhost
 [inputs.ping]
@@ -36,7 +38,7 @@ name = "Ping Localhost"
 host = "127.0.0.1"
 timeout_s = 1
 
-# An example preset that parses a timestamp from a heatbeat UDP packet
+# An example preset that parses a timestamp from a heartbeat UDP packet
 [inputs.timestamp]
 _module_path = "brokkr.inputs.udp"
 _class_name = "UDPInput"
