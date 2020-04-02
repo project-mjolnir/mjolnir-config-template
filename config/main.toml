@@ -47,5 +47,6 @@ monitor_input_steps = [
     "builtins.inputs.current_time",
     "builtins.inputs.run_time",
     "example.inputs.ping",
+    "example.inputs.plugin",
 ]
 monitor_output_steps = [ "monitor_csv_output" ]

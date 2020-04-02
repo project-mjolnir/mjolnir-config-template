@@ -23,6 +23,9 @@ timestamp = { binary_type = "q", conversion = "time_posix_ms", unit = "s", uncer
 # Data types referenced in individual presets
 [data_types]
 timestamp_main = { full_name = "Time Stamp", type_presets = "timestamp" }
+example_volts = { binary_type = "f", conversion = "custom", scale = 20, digits = 3, unit = "V", uncertainty = 0.1 }
+example_time = { binary_type = "f", conversion = "custom", base = 10, power = 9, after = "time_posix", unit = "s", uncertainty = 1 }
+example_str = { binary_type = "s", conversion = "str" }
 
 # By convention, presets are categorized into "input", "output", "commands", etc.
 
@@ -38,7 +41,7 @@ name = "Ping Localhost"
 host = "127.0.0.1"
 timeout_s = 1
 
-# An example preset that parses a timestamp from a heartbeat UDP packet
+# An example preset that parses a timestamp from a heatbeat UDP packet
 [inputs.timestamp]
 _module_path = "brokkr.inputs.udp"
 _class_name = "UDPInput"
@@ -48,4 +51,17 @@ port = 8080
 timeout_s = 2
 data_types = [
     "timestamp_main",
+]
+
+# An example preset that showcases using a plugin
+[inputs.plugin]
+_module_path = "example"
+_class_name = "ExamplePluginInput"
+_is_plugin = true
+name = "Example Plugin"
+na_chance = 0.2
+data_types = [
+    "example_volts",
+    "example_time",
+    "example_str",
 ]
