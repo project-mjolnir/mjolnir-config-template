@@ -23,7 +23,7 @@ timestamp = { binary_type = "q", conversion = "time_posix_ms", unit = "s", uncer
 # Data types referenced in individual presets
 [data_types]
 timestamp_main = { full_name = "Time Stamp", type_presets = "timestamp" }
-example_volts = { binary_type = "f", conversion = "custom", scale = 20, digits = 3, unit = "V", uncertainty = 0.1 }
+example_volts = { binary_type = "f", conversion = "custom", scale = 20, digits = 3, unit = "V", uncertainty = 0.1, na_marker = -999 }
 example_time = { binary_type = "f", conversion = "custom", base = 10, power = 9, after = "time_posix", unit = "s", uncertainty = 1 }
 example_str = { binary_type = "s", conversion = "str" }
 
