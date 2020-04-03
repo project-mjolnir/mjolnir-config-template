@@ -5,6 +5,8 @@ config_version = 1
 name = "example"
 # Type of this preset; currently the only type is device
 type = "device"
+# Dependencies required by all inputs in this device preset
+_dependencies = [ "brokkr>=0.3.0" ]
 
 # Preset-level metadata; format follows that specified in the top-level
 [metadata]
@@ -58,6 +60,8 @@ data_types = [
 _module_path = "example"
 _class_name = "ExamplePluginInput"
 _is_plugin = true
+# Dependencies required by this specific item
+_dependencies = [ "toml" ]
 name = "Example Plugin"
 na_chance = 0.2
 data_types = [
