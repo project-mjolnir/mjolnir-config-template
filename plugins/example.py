@@ -17,6 +17,7 @@ class ExamplePluginInput(brokkr.pipeline.baseinput.ValueInputStep):
             self,
             seed=None,
             na_chance=0.5,
+            error_chance=0,
             **value_input_kwargs):
         """
         Simulate an example Brokkr input plugin with random data.
@@ -40,6 +41,7 @@ class ExamplePluginInput(brokkr.pipeline.baseinput.ValueInputStep):
         """
         super().__init__(binary_decoder=False, **value_input_kwargs)
         self._na_chance = na_chance
+        self._error_chance = error_chance
 
         random.seed(seed)
 
@@ -69,10 +71,11 @@ class ExamplePluginInput(brokkr.pipeline.baseinput.ValueInputStep):
                 if random.random() < self._na_chance:
                     raise RuntimeError("Error reading example data!")
             except Exception as e:
-                self.logger.error(
-                    "%s getting data value %s on step %s: %s",
-                    type(e).__name__, data_type.full_name, self.name, e)
-                self.logger.info("Error details:", exc_info=True)
+                if random.random() < self._error_chance:
+                    self.logger.error(
+                        "%s getting data value %s on step %s: %s",
+                        type(e).__name__, data_type.full_name, self.name, e)
+                    self.logger.info("Error details:", exc_info=True)
                 raw_data_value = None
             raw_data.append(raw_data_value)
 
