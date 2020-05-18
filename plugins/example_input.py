@@ -1,5 +1,5 @@
 """
-Example lightweight plugin for the Mjolnir-Config-Template.
+Example lightweight input plugin for the Mjolnir-Config-Template.
 """
 
 # Standard library imports

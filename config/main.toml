@@ -48,7 +48,9 @@ monitor_interval_s = 10
 monitor_input_steps = [
     "builtins.inputs.current_time",
     "builtins.inputs.run_time",
-    "example.inputs.ping",
-    "example.inputs.plugin",
-]
-monitor_output_steps = [ "monitor_csv_output" ]
+    "example_input.inputs.ping",
+    "example_input.inputs.plugin",
+    ]
+monitor_output_steps = [
+    "monitor_csv_output",
+    ]

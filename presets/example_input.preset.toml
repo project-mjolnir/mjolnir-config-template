@@ -1,8 +1,8 @@
-# Example preset demonstrating a sample configuration setup
+# Example device preset demonstrating multiple input presets
 
 config_version = 1
 # Name of this device preset, used for lookup
-name = "example"
+name = "example_input"
 # Type of this preset; currently the only type is device
 type = "device"
 # Dependencies required by all inputs in this device preset
@@ -10,7 +10,7 @@ _dependencies = [ "brokkr>=0.3.0" ]
 
 # Preset-level metadata; format follows that specified in the top-level
 [metadata]
-name_full = "Example Preset"
+name_full = "Example Input Preset"
 author = "Your name here"
 description = "Long description here"
 homepage = "https://www.example.com"
@@ -60,12 +60,12 @@ data_types = [
 
 # An example preset that showcases using a plugin
 [inputs.plugin]
-_module_path = "example"
+_module_path = "example_input"
 _class_name = "ExamplePluginInput"
 _is_plugin = true
 # Dependencies required by this specific item
 _dependencies = [ "toml" ]
-name = "Example Plugin"
+name = "Example Input Plugin"
 na_chance = 0.2
 error_chance = 0
 data_types = [
