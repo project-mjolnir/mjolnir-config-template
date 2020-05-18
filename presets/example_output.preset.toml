@@ -1,0 +1,30 @@
+# Example device preset demonstrating a sample output preset
+
+config_version = 1
+# Name of this device preset, used for lookup
+name = "example_output"
+# Type of this preset; currently the only type is device
+type = "device"
+# Dependencies required by all inputs in this device preset
+_dependencies = [ "brokkr>=0.3.0" ]
+
+# Preset-level metadata; format follows that specified in the top-level
+[metadata]
+name_full = "Example Output Preset"
+author = "Your name here"
+description = "Long description here"
+homepage = "https://www.example.com"
+repo = "https://github.com"
+preset_version = "0.1.0"
+brokkr_version_min = "0.3.0"
+brokkr_version_max = ""
+
+# An example preset that showcases using a plugin
+[outputs.plugin]
+_module_path = "example_output"
+_class_name = "ExamplePluginOutput"
+_is_plugin = true
+# Dependencies required by this specific item
+_dependencies = [ "simpleeval" ]
+name = "Example Output Plugin"
+expression = "current_data['example_bool'].value != previous_data['example_bool'].value"

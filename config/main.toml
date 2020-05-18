@@ -52,5 +52,6 @@ monitor_input_steps = [
     "example_input.inputs.plugin",
     ]
 monitor_output_steps = [
+    "example_output.outputs.plugin",
     "monitor_csv_output",
     ]
