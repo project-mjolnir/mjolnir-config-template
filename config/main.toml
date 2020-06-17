@@ -25,6 +25,10 @@ worker_shutdown_wait_s = 10
 # Base offset to the tunnel port to expose on the server (port = offset + unit_number)
 #tunnel_port_offset = 10000
 
+# Custom data types, adding to or overriding those defined in the presets
+[data_types]
+example_current = { binary_type = "f", conversion = "eval", expression = "(int(value * 16) & 0b0111) ** 2", unit = "A", uncertainty = 0.5, digits = 3 }
+
 # List custom steps or override default preset settings here under the [steps] key
 [steps.monitor_csv_output]
 # Preset for this step, in the format "{device_name}.{input/output/command/etc}.{preset_name}"
@@ -35,6 +39,21 @@ name = "Monitoring CSV Output"
 output_path = "monitoring"
 filename_kwargs = { output_type = "monitoring" }
 
+[steps.plugin_input_custom]
+_preset = "example_input.inputs.plugin"
+data_types = [
+    "example_volts",
+    "example_current",
+    "example_time",
+    "example_str",
+    "example_bool",
+]
+
+[steps.ping_input_2]
+_preset = "example_input.inputs.ping"
+name_suffix = "_badhost"
+host = "0.0.0.0"
+
 # List pipelines to run here under the [pipelines] key
 [pipelines.monitor]
 # Custom builder for this pipeline, e.g. a streamlined builder for monitoring pipelines
@@ -43,13 +62,16 @@ _builder = "monitor"
 name = "Monitoring"
 # Custom settings for this pipeline type: here, the interval in s to run monitoring
 monitor_interval_s = 10
+# Whether to inject NAs when starting, so that jumps in data continuity are apparent
+na_on_start = false
 # Most pipeline builders will need one or more lists of steps.
 # These are either names of steps in the [steps] table, or preset names as above
 monitor_input_steps = [
     "builtins.inputs.current_time",
     "builtins.inputs.run_time",
     "example_input.inputs.ping",
-    "example_input.inputs.plugin",
+    "plugin_input_custom",
+    "ping_input_2",
     ]
 monitor_output_steps = [
     "example_output.outputs.plugin",

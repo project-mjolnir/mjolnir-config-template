@@ -70,8 +70,6 @@ na_chance = 0.2
 error_chance = 0
 data_types = [
     "example_volts",
-    "example_current",
-    "example_time",
     "example_str",
     "example_bool",
 ]
