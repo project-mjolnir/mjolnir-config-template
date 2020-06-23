@@ -10,66 +10,67 @@ _dependencies = [ "brokkr>=0.3.0" ]
 
 # Preset-level metadata; format follows that specified in the top-level
 [metadata]
-name_full = "Example Input Preset"
-author = "Your name here"
-description = "Long description here"
-homepage = "https://www.example.com"
-repo = "https://github.com"
-preset_version = "0.1.0"
-brokkr_version_min = "0.3.0"
-brokkr_version_max = ""
+    name_full = "Example Input Preset"
+    author = "Your name here"
+    description = "Long description here"
+    homepage = "https://www.example.com"
+    repo = "https://github.com"
+    preset_version = "0.1.0"
+    brokkr_version_min = "0.3.0"
+    brokkr_version_max = ""
 
 # Data type presets to use for the data types that follow
 [type_presets]
-timestamp = { binary_type = "q", conversion = "time_posix_ms", unit = "s", uncertainty = 0.001 }
+    timestamp = { binary_type = "q", conversion = "time_posix_ms", unit = "s", uncertainty = 0.001 }
 
 # Data types referenced in individual presets
 [data_types]
-timestamp_main = { full_name = "Time Stamp", type_presets = "timestamp" }
-example_volts = { binary_type = "f", conversion = "custom", scale = 20, offset = 10, digits = 3, unit = "V", uncertainty = 0.1, na_marker = -999 }
-example_current = { binary_type = "f", conversion = "eval", expression = "(int(value * 16) & 0b0111) ** 2", unit = "A", uncertainty = 0.5, digits = 3 }
-example_time = { binary_type = "f", conversion = "multistep", main = "custom", base = 10, power = 9, after = "time_posix", unit = "s", uncertainty = 1 }
-example_str = { binary_type = "s", conversion = "str" }
-example_bool = { binary_type = "f", conversion = "multistep", before = "custom", before_kwargs.scale = 2, main = "int", after="bool" }
+    timestamp_main = { full_name = "Time Stamp", type_presets = "timestamp" }
+    example_volts = { binary_type = "f", conversion = "custom", scale = 20, offset = 10, digits = 3, unit = "V", uncertainty = 0.1, na_marker = -999 }
+    example_current = { binary_type = "f", conversion = "eval", expression = "(int(value * 16) & 0b0111) ** 2", unit = "A", uncertainty = 0.5, digits = 3 }
+    example_time = { binary_type = "f", conversion = "multistep", main = "custom", base = 10, power = 9, after = "time_posix", unit = "s", uncertainty = 1 }
+    example_str = { binary_type = "s", conversion = "str" }
+    example_bool = { binary_type = "f", conversion = "multistep", before = "custom", before_kwargs.scale = 2, main = "int", after="bool" }
 
 # By convention, presets are categorized into "input", "output", "commands", etc.
+[inputs]
 
-# A simple input preset that pings localhost
-[inputs.ping]
-# Module to load with the class to use
-_module_path = "brokkr.inputs.ping"
-# PipelineStep class to instantiate with the preset's data
-_class_name = "PingInput"
-# Name of the step, used for UI text and logging
-name = "Ping Localhost"
-# Step-specific parameters
-host = "127.0.0.1"
-timeout_s = 1
+    # A simple input preset that pings localhost
+    [inputs.ping]
+        # Module to load with the class to use
+        _module_path = "brokkr.inputs.ping"
+        # PipelineStep class to instantiate with the preset's data
+        _class_name = "PingInput"
+        # Name of the step, used for UI text and logging
+        name = "Ping Localhost"
+        # Step-specific parameters
+        host = "127.0.0.1"
+        timeout_s = 1
 
-# An example preset that parses a timestamp from a heatbeat UDP packet
-[inputs.timestamp]
-_module_path = "brokkr.inputs.udp"
-_class_name = "UDPInput"
-name = "Example UDP packet with timestamp"
-host = "127.0.0.1"
-port = 8080
-timeout_s = 2
-data_types = [
-    "timestamp_main",
-]
+    # An example preset that parses a timestamp from a heatbeat UDP packet
+    [inputs.timestamp]
+        _module_path = "brokkr.inputs.udp"
+        _class_name = "UDPInput"
+        name = "Example UDP packet with timestamp"
+        host = "127.0.0.1"
+        port = 8080
+        timeout_s = 2
+        data_types = [
+            "timestamp_main",
+        ]
 
-# An example preset that showcases using a plugin
-[inputs.plugin]
-_module_path = "example_input"
-_class_name = "ExamplePluginInput"
-_is_plugin = true
-# Dependencies required by this specific item
-_dependencies = [ "toml" ]
-name = "Example Input Plugin"
-na_chance = 0.2
-error_chance = 0
-data_types = [
-    "example_volts",
-    "example_str",
-    "example_bool",
-]
+    # An example preset that showcases using a plugin
+    [inputs.plugin]
+        _module_path = "example_input"
+        _class_name = "ExamplePluginInput"
+        _is_plugin = true
+        # Dependencies required by this specific item
+        _dependencies = [ "toml" ]
+        name = "Example Input Plugin"
+        na_chance = 0.2
+        error_chance = 0
+        data_types = [
+            "example_volts",
+            "example_str",
+            "example_bool",
+        ]
