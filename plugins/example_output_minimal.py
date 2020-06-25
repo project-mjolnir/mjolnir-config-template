@@ -1,27 +1,21 @@
-"""Example ultra-minimal output plugin for the Mjolnir-Config-Template."""
+"""Example output plugin demonstrating a custom file format."""
 
 # Local imports
-import brokkr.pipeline.base
+import brokkr.pipeline.baseoutput
 
 
-class ExamplePluginOutput(brokkr.pipeline.base.OutputStep):
-    def __init__(self, **output_step_kwargs):
-        # Pass arguments to superclass init
-        super().__init__(**output_step_kwargs)
+class ExampleFileOutput(brokkr.pipeline.baseoutput.FileOutputStep):
+    def __init__(self, extension="txt", **file_kwargs):
+        super().__init__(extension=extension, **file_kwargs)
+        # YOUR INIT CODE HERE
 
-        # Further setup at descretion of plugin author
-        self._previous_data = None
-
-    def execute(self, input_data=None):
-        # Function contents at plugin author descretion
-        if self._previous_data is None:
-            self._previous_data = input_data
-        if (input_data['example_bool'].value
-                != self._previous_data['example_bool'].value):
-            self.logger.info("Zoinks! Example_bool changed from %s to %s",
-                             input_data['example_bool'].value,
-                             self._previous_data['example_bool'].value)
-        self._previous_data = input_data
-
-        # Passthrough the input for consumption by any further steps
-        return input_data
+    def write_file(self, input_data, output_file_path):
+        # YOUR FILE WRITING CODE HERE
+        with open(output_file_path, mode="a",
+                  encoding="utf-8", newline="\n") as output_file:
+            try:
+                output_data = {
+                    key: value.value for key, value in input_data.items()}
+            except AttributeError:  # If input data is a dict already
+                output_data = input_data
+            output_file.write(repr(output_data) + "\n")

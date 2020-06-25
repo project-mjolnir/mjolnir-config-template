@@ -1,0 +1,42 @@
+# Example device preset demonstrating a sensor input preset
+
+config_version = 1
+# Name of this device preset, used for lookup
+name = "example_input_sensor"
+# Type of this preset; currently the only type is device
+type = "device"
+# Dependencies required by all inputs in this device preset
+_dependencies = [ "brokkr>=0.3.0" ]
+
+# Preset-level metadata; format follows that specified in the top-level
+[metadata]
+    name_full = "Example Input Preset"
+    author = "Your name here"
+    description = "Long description here"
+    homepage = "https://www.example.com"
+    repo = "https://github.com"
+    preset_version = "0.1.0"
+    brokkr_version_min = "0.3.0"
+    brokkr_version_max = ""
+
+# Data types referenced in individual presets
+[data_types]
+    example_sensor_temperature = { full_name = "Temperature (Example)", custom_attrs.attribute_name = "temperature", digits = 3 }
+    example_sensor_pressure = { full_name = "Pressure (Example)", binary_type = "f", unit = "hPa", uncertainty = 1.0, custom_attrs.attribute_name = "pressure", digits = 3 }
+    example_sensor_humidity = { full_name = "Humidity (Example)", binary_type = "f", unit = "%", uncertainty = 3.0, custom_attrs.attribute_name = "humidity", digits = 3 }
+
+# By convention, presets are categorized into "input", "output", "commands", etc.
+[inputs]
+    # Example plugin input with a custom sensor class using properties
+    [inputs.sensor_property]
+        _module_path = "example_input_sensor"
+        _class_name = "ExampleSensorPropertyInput"
+        _is_plugin = true
+        _dependencies = []
+        sensor_kwargs.as_methods = false
+        sensor_kwargs.attribute_dict = { temperature = 25, pressure = 1013, humidity = 50 }
+        data_types = [
+            "example_sensor_temperature",
+            "example_sensor_pressure",
+            "example_sensor_humidity",
+        ]

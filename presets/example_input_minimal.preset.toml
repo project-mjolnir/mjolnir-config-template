@@ -1,0 +1,19 @@
+# Example minimal device preset demonstrating a plugin input preset
+config_version = 1
+name = "example_input_minimal"
+
+[data_types]
+    example_str = { binary_type = "s", custom_attrs.example_value = "Test" }
+    example_int = { binary_type = "i", custom_attrs.example_value = 42 }
+
+[inputs]
+    [inputs.plugin]
+        _module_path = "example_input_minimal"
+        _class_name = "ExampleMinimalInput"
+        _is_plugin = true
+        name = "Example Minimal Input Plugin"
+        example_argument = true
+        data_types = [
+            "example_str",
+            "example_int",
+        ]

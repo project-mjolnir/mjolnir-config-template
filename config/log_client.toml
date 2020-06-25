@@ -6,7 +6,6 @@ config_version = 1
 # Settings are those accepted by dictConfig for Python's stdlib logging module
 
 [handlers.file]
-
-filename = "log/brokkr_{system_prefix}_{unit_number:0>4}.log"
-maxBytes = 10000000
-backupCount = 10
+    filename = "log/brokkr_{system_prefix}_{unit_number:0>4}.log"
+    maxBytes = 10000000
+    backupCount = 10

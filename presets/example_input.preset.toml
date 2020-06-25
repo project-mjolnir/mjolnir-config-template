@@ -34,7 +34,6 @@ _dependencies = [ "brokkr>=0.3.0" ]
 
 # By convention, presets are categorized into "input", "output", "commands", etc.
 [inputs]
-
     # A simple input preset that pings localhost
     [inputs.ping]
         # Module to load with the class to use
@@ -62,7 +61,7 @@ _dependencies = [ "brokkr>=0.3.0" ]
     # An example preset that showcases using a plugin
     [inputs.plugin]
         _module_path = "example_input"
-        _class_name = "ExamplePluginInput"
+        _class_name = "ExampleInputPlugin"
         _is_plugin = true
         # Dependencies required by this specific item
         _dependencies = [ "toml" ]

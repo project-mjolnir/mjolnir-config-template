@@ -1,0 +1,31 @@
+# Example device preset demonstrating a sample transform preset
+
+config_version = 1
+# Name of this device preset, used for lookup
+name = "example_transform"
+# Type of this preset; currently the only type is device
+type = "device"
+# Dependencies required by all inputs in this device preset
+_dependencies = [ "brokkr>=0.3.0" ]
+
+# Preset-level metadata; format follows that specified in the top-level
+[metadata]
+    name_full = "Example Transform Preset"
+    author = "Your name here"
+    description = "Long description here"
+    homepage = "https://www.example.com"
+    repo = "https://github.com"
+    preset_version = "0.1.0"
+    brokkr_version_min = "0.3.0"
+    brokkr_version_max = ""
+
+[transforms]
+    # An example preset that showcases using a plugin
+    [transforms.plugin]
+        _module_path = "example_transform"
+        _class_name = "ExampleTransformPlugin"
+        _is_plugin = true
+        # Dependencies required by this specific item
+        _dependencies = [ "simpleeval" ]
+        name = "Example TransformStep Plugin"
+        expression = "current_data['example_bool'].value != previous_data['example_bool'].value"

@@ -1,81 +1,55 @@
 """
-Example conditional-action output plugin for the Mjolnir-Config-Template.
+Example output preset demonstrating a custom file format.
 """
 
 # Local imports
-import brokkr.pipeline.base
-import brokkr.pipeline.decode
+import brokkr.pipeline.baseoutput
 
 
-class ExamplePluginOutput(brokkr.pipeline.base.OutputStep):
-    """Demo a Mjolnir  output plugin, executing an action on a condition."""
-
-    def __init__(self, expression, **output_step_kwargs):
+class ExampleFileOutput(brokkr.pipeline.baseoutput.FileOutputStep):
+    """Example output plugin that writes the data's repr to a text file."""
+    def __init__(self, extension="txt", **file_kwargs):
         """
-        Demo a Mjolnir output plugin, executing an action on a condition.
+        Example output plugin that writes the output data repr to a text file.
 
         Parameters
         ----------
-        expression : str
-            The simplified Python expression to evaluate.
-        output_step_kwargs : **kwargs, optional
-            Keyword arguments to pass to the OutputStep constructor.
+        extension : str, optional
+            Extension to use for the output file. The default is "txt".
+        **file_kwargs : kwargs
+            Additional keyword arguments to pass to FileOutputStep.
 
         Returns
         -------
         None.
 
         """
-        # Pass arguments to superclass init
-        super().__init__(**output_step_kwargs)
+        super().__init__(extension=extension, **file_kwargs)
+        # YOUR INIT CODE HERE
 
-        # Setup simpleeval parser and class initial state
-        self._eval_parser = brokkr.pipeline.decode.generate_eval_parser()
-        self._expression = expression
-        self._previous_data = None
-
-    def execute(self, input_data=None):
+    def write_file(self, input_data, output_file_path):
         """
-        Executing an action upon detection an arbitrary condition in the data.
+        Appends the given data to file at the given path, as its string repr.
 
         Parameters
         ----------
-        input_data : any, optional
-            Per iteration input data passed to this function from previous
-            PipelineSteps. Not used here but retained for compatibility with
-            the generalized PipelineStep API. The default is None.
+        input_data : dict of str: DataValue
+            The input data to .
+        output_file_path : str or pathlib.Path
+            The file path to append to, as either a string or a Path.
 
         Returns
         -------
-        input_data : same as input_data
-            Input data passed through unchanged, for further steps to consume.
+        None.
 
         """
-        # Handle first iteration
-        if self._previous_data is None:
-            self._previous_data = input_data
-        # Set the variables visible to the parser
-        self._eval_parser.names["current_data"] = input_data
-        self._eval_parser.names["previous_data"] = self._previous_data
-        # Check the result of the expression on these data
-        try:
-            if self._eval_parser.eval(self._expression):
-                # Take some action
-                self.logger.info("Zoinks! %s is true!", self._expression)
-        # If expression evaluation fails, presumably due to bad data values
-        except Exception as e:
-            self.logger.error(
-                "%s evaluating expression %r in %s on step %s: %s",
-                type(e).__name__, self._expression, type(self), self.name, e)
-            self.logger.info("Error details:", exc_info=True)
-            for pretty_name, data in [("Current", input_data),
-                                      ("Previous", self._previous_data)]:
-                self.logger.info(
-                    "%s data: %r", pretty_name,
-                    {key: str(value) for key, value in data.items()})
-
-        # Update state for next pass through the pipeline
-        self._previous_data = input_data
-
-        # Passthrough the input for consumption by any further steps
-        return input_data
+        # YOUR FILE WRITING CODE HERE
+        with open(output_file_path, mode="a",
+                  encoding="utf-8", newline="") as output_file:
+            self.logger.debug("Writing output as repr text")
+            try:
+                output_data = {
+                    key: value.value for key, value in input_data.items()}
+            except AttributeError:  # If input data is a dict already
+                output_data = input_data
+            output_file.write(repr(output_data) + "\n")

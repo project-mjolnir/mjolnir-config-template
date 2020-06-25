@@ -3,14 +3,15 @@ config_version = 1
 name = "adafruit_bme280_minimal"
 
 [data_types]
-bme280_temperature = { full_name = "Temperature (BME280)", binary_type = "f", unit = "C", uncertainty = 1.0, custom_attrs.attribute_name = "temperature", digits = 3 }
-bme280_pressure = { full_name = "Pressure (BME280)", binary_type = "f", unit = "hPa", uncertainty = 1.0, custom_attrs.attribute_name = "pressure", digits = 3 }
-bme280_humidity = { full_name = "Humidity (BME280)", binary_type = "f", unit = "%", uncertainty = 3.0, custom_attrs.attribute_name = "humidity", digits = 3 }
+    bme280_temperature = { full_name = "Temperature (BME280)", binary_type = "f", unit = "C", uncertainty = 1.0, custom_attrs.attribute_name = "temperature", digits = 3 }
+    bme280_pressure = { full_name = "Pressure (BME280)", binary_type = "f", unit = "hPa", uncertainty = 1.0, custom_attrs.attribute_name = "pressure", digits = 3 }
+    bme280_humidity = { full_name = "Humidity (BME280)", binary_type = "f", unit = "%", uncertainty = 3.0, custom_attrs.attribute_name = "humidity", digits = 3 }
 
-[inputs.bme280_i2c]
-_module_path = "brokkr.inputs.adafruiti2c"
-_class_name = "AdafruitI2CInput"
-_dependencies = [ "adafruit-circuitpython-bme280" ]
-sensor_module = "adafruit_bme280"
-sensor_class = "Adafruit_BME280_I2C"
-data_types = [ "bme280_temperature", "bme280_pressure", "bme280_humidity" ]
+[inputs]
+    [inputs.bme280_i2c]
+        _module_path = "brokkr.inputs.adafruiti2c"
+        _class_name = "AdafruitI2CInput"
+        _dependencies = [ "adafruit-circuitpython-bme280" ]
+        sensor_module = "adafruit_bme280"
+        sensor_class = "Adafruit_BME280_I2C"
+        data_types = [ "bme280_temperature", "bme280_pressure", "bme280_humidity" ]

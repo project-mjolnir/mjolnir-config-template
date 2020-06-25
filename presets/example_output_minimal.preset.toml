@@ -1,13 +1,11 @@
-# Example ultra-minimal device preset demonstrating a sample output preset
-
+# Example minimal device preset demonstrating a sample output preset
 config_version = 1
-# Name of this device preset, used for lookup
-name = "example_output"
+name = "example_output_minimal"
 
-# An example preset that showcases using a plugin
-[outputs.plugin]
-_module_path = "example_output"
-_class_name = "ExamplePluginOutput"
-_is_plugin = true
-name = "Example Output Plugin"
-expression = "current_data['example_bool'].value != previous_data['example_bool'].value"
+[outputs]
+    [outputs.reprfile]
+        _module_path = "example_output_minimal"
+        _class_name = "ExampleFileOutput"
+        _is_plugin = true
+        name = "Example File Output Plugin"
+        extension = "txt"

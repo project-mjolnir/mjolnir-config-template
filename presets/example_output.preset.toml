@@ -20,12 +20,23 @@ _dependencies = [ "brokkr>=0.3.0" ]
     brokkr_version_max = ""
 
 [outputs]
+    # Preset that outputs data in Tab-Separated Value (TSV) format
+    [outputs.tsv_file]
+        _module_path = "brokkr.outputs.csvfile"
+        _class_name = "CSVFileOutput"
+        # Dependencies required by this specific item
+        _dependencies = []
+        csv_kwargs.delimiter = "\t"
+        extension = "tsv"
+        name = "TSV File Output"
+        output_path = "data"
+
     # An example preset that showcases using a plugin
-    [outputs.plugin]
+    [outputs.repr_file]
         _module_path = "example_output"
-        _class_name = "ExamplePluginOutput"
+        _class_name = "ExampleFileOutput"
         _is_plugin = true
         # Dependencies required by this specific item
-        _dependencies = [ "simpleeval" ]
-        name = "Example Output Plugin"
-        expression = "current_data['example_bool'].value != previous_data['example_bool'].value"
+        _dependencies = []
+        name = "Example File Output Plugin"
+        extension = "txt"

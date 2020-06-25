@@ -7,10 +7,9 @@ import random
 
 # Local imports
 import brokkr.pipeline.baseinput
-import brokkr.utils.network
 
 
-class ExamplePluginInput(brokkr.pipeline.baseinput.ValueInputStep):
+class ExampleInputPlugin(brokkr.pipeline.baseinput.ValueInputStep):
     """Simulate an example Brokkr input plugin with random data."""
 
     def __init__(
@@ -40,6 +39,7 @@ class ExamplePluginInput(brokkr.pipeline.baseinput.ValueInputStep):
 
         """
         super().__init__(binary_decoder=False, **value_input_kwargs)
+        # YOUR __INIT__ CODE HERE
         self._na_chance = na_chance
         self._error_chance = error_chance
 
@@ -66,6 +66,7 @@ class ExamplePluginInput(brokkr.pipeline.baseinput.ValueInputStep):
 
         raw_data = []
         for data_type in self.data_types:
+            # YOUR DATA READ CODE HERE
             try:
                 raw_data_value = random.random()
                 if random.random() < self._na_chance:

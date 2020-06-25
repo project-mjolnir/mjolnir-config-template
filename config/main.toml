@@ -40,6 +40,13 @@ config_version = 1
         output_path = "monitoring"
         filename_kwargs = { output_type = "monitoring" }
 
+    [steps.monitor_repr_output]
+        # Preset for this step, in the format "{device_name}.{input/output/command/etc}.{preset_name}"
+        _preset = "example_output.outputs.repr_file"
+        name = "Monitoring Repr Output"
+        output_path = "monitoring"
+        filename_kwargs = { output_type = "monitoring" }
+
     [steps.plugin_input_custom]
         _preset = "example_input.inputs.plugin"
         data_types = [
@@ -74,8 +81,13 @@ config_version = 1
             "example_input.inputs.ping",
             "plugin_input_custom",
             "ping_input_2",
-            ]
+            "example_input_minimal.inputs.plugin",
+            "example_input_sensor.inputs.sensor_property",
+        ]
+        monitor_process_steps = [
+            "example_transform.transforms.plugin"
+        ]
         monitor_output_steps = [
-            "example_output.outputs.plugin",
             "monitor_csv_output",
-            ]
+            "monitor_repr_output",
+        ]
