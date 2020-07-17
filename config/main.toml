@@ -43,9 +43,16 @@ config_version = 1
     [steps.monitor_repr_output]
         # Preset for this step, in the format "{device_name}.{input/output/command/etc}.{preset_name}"
         _preset = "example_output.outputs.repr_file"
+        _enabled = false
         name = "Monitoring Repr Output"
         output_path = "monitoring"
         filename_kwargs = { output_type = "monitoring" }
+
+    [steps.minimal_csv_output]
+        _preset = "builtins.outputs.csv_file"
+        name = "Minimal CSV Output"
+        output_path = "monitoring"
+        filename_kwargs = { output_type = "minimal" }
 
     [steps.plugin_input_custom]
         _preset = "example_input.inputs.plugin"
@@ -91,3 +98,11 @@ config_version = 1
             "monitor_csv_output",
             "monitor_repr_output",
         ]
+
+    [pipelines.minimal]
+        _enabled = false
+        _builder = "monitor"
+        name = "Minimal"
+        monitor_interval_s = 10
+        monitor_input_steps = ["builtins.inputs.current_time", "builtins.inputs.run_time"]
+        monitor_output_steps = ["minimal_csv_output"]
