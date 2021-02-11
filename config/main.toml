@@ -9,7 +9,7 @@ config_version = 1
     na_marker = "NA"
     # How to format the output filename on the client.
     # Items in {} are replaced with their corresponding value
-    output_filename_client = "{output_type}_{system_prefix}_{unit_number:0>4}_{utc_date!s}.{extension}"
+    output_filename_client = "{output_type}_{system_prefix}_{unit_number:0>4}_{utc_date!s}"
     # The path the client should use when storing output data files
     output_path_client = "~/brokkr/{system_name}"
     # How long to wait for the workers to shut down after sending the command
